@@ -16,7 +16,7 @@ public class DefaultGameService implements GameService {
     private PlayerRepository playerRepository;
 
     @Override
-    public Boolean gameHasFinish() {
+    public Boolean gameHasFinished() {
         final List<Player> players = playerRepository.findAll();
         return Objects.nonNull(players) && !players.isEmpty() && players.stream().allMatch(player -> Objects.nonNull(player.getScore()));
     }

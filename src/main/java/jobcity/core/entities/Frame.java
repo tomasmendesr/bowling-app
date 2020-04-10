@@ -20,6 +20,16 @@ public class Frame {
     @JoinColumn(name = "player_id")
     private Player player;
 
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    private int score;
+
     public Long getId() {
         return id;
     }

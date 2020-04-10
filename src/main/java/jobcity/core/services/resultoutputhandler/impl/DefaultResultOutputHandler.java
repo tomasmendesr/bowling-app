@@ -13,8 +13,11 @@ public class DefaultResultOutputHandler implements ResultOutputHandler {
 
     @Override
     public void printGameResult() {
-        if (!gameService.gameHasFinish()) {
+        if (!gameService.gameHasFinished()) {
             throw new BowlingApplicationException("There isn't enought data to finish the game. Please check the the file.");
         }
+
+        // TODO calcular scores de frames por jugador
+        // Calcular score total por jugador
     }
 }

@@ -6,5 +6,5 @@ public interface GameService {
      * Returns true if all the players has a score
      * @return
      */
-    Boolean gameHasFinish();
+    Boolean gameHasFinished();
 }

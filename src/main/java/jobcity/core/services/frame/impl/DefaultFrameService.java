@@ -4,7 +4,6 @@ import jobcity.core.entities.Frame;
 import jobcity.core.entities.Pinfall;
 import jobcity.core.entities.Player;
 import jobcity.core.exceptions.BowlingApplicationException;
-import jobcity.core.exceptions.FrameException;
 import jobcity.core.repositories.FrameRepository;
 import jobcity.core.services.frame.FrameService;
 import jobcity.core.services.pinfall.PinfallService;
@@ -63,7 +62,7 @@ public class DefaultFrameService implements FrameService {
         Frame frame = new Frame();
         frame.setPlayer(player);
         frame.setFrameNumber(frameNumber);
-        return frame;
+        return frameRepository.save(frame);
     }
 
     private Boolean isComplete(final Frame frame) {

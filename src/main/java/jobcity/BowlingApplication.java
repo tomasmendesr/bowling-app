@@ -29,6 +29,12 @@ public class BowlingApplication {
             }
 
             final File file = new File(args[0]);
+            int dotIndex = file.getName().lastIndexOf('.');
+            String fileExtension = (dotIndex == -1) ? "" : file.getName().substring(dotIndex + 1);
+            if (!"txt".equals(fileExtension)) {
+                throw new IOException("The file should have a .txt extension");
+            }
+
             final BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
 
             String readLine;
