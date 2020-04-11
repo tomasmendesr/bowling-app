@@ -17,12 +17,32 @@ public class DefaultFrameInputHandler implements FrameInputHandler {
 
     @Override
     public void handle(final String frameInput) {
-        frameLineValidator.validateFrameLine(frameInput);
-        final String[] splitedLine = frameInput.split(" ");
-        int pinfall = 0;
+        validateInput(frameInput);
+        frameService.handleFrame(getPlayerNameFromInput(frameInput), getPinfallsFromInput(frameInput));
+    }
+
+    @Override
+    public void validateInput(final String input) {
+        frameLineValidator.validateFrameLine(input);
+    }
+
+    @Override
+    public String getPlayerNameFromInput(final String input) {
+        final String[] splitedLine = splitInput(input);
+        return splitedLine[0];
+    }
+
+    @Override
+    public int getPinfallsFromInput(final String input) {
+        final String[] splitedLine = splitInput(input);
         if (!"F".equals(splitedLine[1])) {
-            pinfall = Integer.parseInt(splitedLine[1]);
+            return Integer.parseInt(splitedLine[1]);
         }
-        frameService.handleFrame(splitedLine[0], pinfall);
+        return 0;
+    }
+
+    @Override
+    public String[] splitInput(final String input) {
+        return input.split(" ");
     }
 }

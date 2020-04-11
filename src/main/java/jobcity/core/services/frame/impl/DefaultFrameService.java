@@ -8,18 +8,19 @@ import jobcity.core.repositories.FrameRepository;
 import jobcity.core.services.frame.FrameService;
 import jobcity.core.services.pinfall.PinfallService;
 import jobcity.core.services.player.PlayerService;
+import jobcity.core.utils.inputreadervalidator.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class DefaultFrameService implements FrameService {
 
     private static final Integer FIRST_FRAME_NUMBER = 1;
+    private static final Integer MAX_FRAME_NUMBER = 12;
 
     @Autowired
     private PlayerService playerService;
@@ -34,40 +35,41 @@ public class DefaultFrameService implements FrameService {
     public void handleFrame(final String playerName, final int pinfalls) {
         final Player player = playerService.findByName(playerName);
         final List<Frame> playerFrames = frameRepository.findByPlayer(player);
-        final Frame lastFrame = getLastFrame(playerFrames, player);
-        Frame currentFrame = lastFrame;
-        if (isComplete(lastFrame)) {
+        final Frame lastFrame = CollectionUtils.isEmpty(playerFrames) ? saveFrame(player, FIRST_FRAME_NUMBER) : getLastFrame(playerFrames);
+        final Frame currentFrame = getCurrentFrame(lastFrame);
+        pinfallService.saveNewPinfall(currentFrame, pinfalls);
+    }
+
+    @Override
+    public Frame getCurrentFrame(final Frame lastFrame) {
+        if (isFrameComplete(lastFrame)) {
             final int currentFrameNumber = lastFrame.getFrameNumber() + 1;
-            if (currentFrameNumber > 10) {
-                throw new BowlingApplicationException("The player '" + playerName + "' has more than 10 frames");
+            if (currentFrameNumber > MAX_FRAME_NUMBER) {
+                throw new BowlingApplicationException("The player '" + lastFrame.getPlayer() + "' has more than 12 frames");
             }
-            currentFrame = createFrame(player, currentFrameNumber);
+            return saveFrame(lastFrame.getPlayer(), currentFrameNumber);
         }
-        pinfallService.save(currentFrame, pinfalls);
+
+        return lastFrame;
     }
 
-    private Frame getLastFrame(final List<Frame> frames, final Player player) {
-        if (Objects.isNull(frames) || frames.isEmpty()) {
-            return createFrame(player, FIRST_FRAME_NUMBER);
-        } else {
-           return getLastFrame(frames);
-        }
-    }
-
-    private Frame getLastFrame(List<Frame> frames) {
+    @Override
+    public Frame getLastFrame(final List<Frame> frames) {
         return Collections.max(frames, Comparator.comparing(f -> f.getFrameNumber()));
     }
 
-    private Frame createFrame(final Player player, final int frameNumber) {
+    @Override
+    public Frame saveFrame(final Player player, final int frameNumber) {
         Frame frame = new Frame();
         frame.setPlayer(player);
         frame.setFrameNumber(frameNumber);
         return frameRepository.save(frame);
     }
 
-    private Boolean isComplete(final Frame frame) {
+    @Override
+    public Boolean isFrameComplete(final Frame frame) {
         final List<Pinfall> pinfalls = pinfallService.findByFrame(frame);
-        if (Objects.isNull(pinfalls) || pinfalls.isEmpty()) {
+        if (CollectionUtils.isEmpty(pinfalls)) {
             return false;
         }
 

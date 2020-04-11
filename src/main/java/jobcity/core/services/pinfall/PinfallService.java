@@ -13,11 +13,15 @@ public interface PinfallService {
      */
     List<Pinfall> findByFrame(final Frame frame);
 
+    void save(final Pinfall pinfall);
+
     /**
      * Saves a new pinfall related with a frame.
      * @param frame
      * @return
      * @throws jobcity.core.exceptions.BowlingApplicationException in case the sum of the pinfalls adds up to more than 10
      */
-    void save(final Frame frame, final int pinfalls);
+    void saveNewPinfall(final Frame frame, final int pinfalls);
+
+    void validateNewPinfallInFrame(final Frame frame, final Pinfall newPinfall);
 }
