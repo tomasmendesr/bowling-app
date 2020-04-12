@@ -65,7 +65,7 @@ public class DefaultResultOutputHandler implements ResultOutputHandler {
             if (pinfallsFromFrame10.get(0).getQuantity() == 10) {
                 result = result + " X ";
                 Frame frame11 = frames.get(11);
-                final List<Pinfall> pinfallsFromFrame11 = pinfallService.findByFrame(frame10);
+                final List<Pinfall> pinfallsFromFrame11 = pinfallService.findByFrame(frame11);
                 if (pinfallsFromFrame11.get(0).getQuantity() == 10) {
                     return result + "X";
                 }
