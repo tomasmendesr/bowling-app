@@ -11,4 +11,5 @@ public interface FrameService {
     Frame getCurrentFrame(final Frame lastFrame);
     Frame saveFrame(final Player player, final int frameNumber);
     Boolean isFrameComplete(final Frame frame);
+    List<Frame> findByPlayer(Player player);
 }

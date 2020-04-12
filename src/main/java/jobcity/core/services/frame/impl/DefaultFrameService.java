@@ -8,7 +8,7 @@ import jobcity.core.repositories.FrameRepository;
 import jobcity.core.services.frame.FrameService;
 import jobcity.core.services.pinfall.PinfallService;
 import jobcity.core.services.player.PlayerService;
-import jobcity.core.utils.inputreadervalidator.CollectionUtils;
+import jobcity.core.utils.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +20,7 @@ import java.util.List;
 public class DefaultFrameService implements FrameService {
 
     private static final Integer FIRST_FRAME_NUMBER = 1;
-    private static final Integer MAX_FRAME_NUMBER = 12;
+    public static final Integer MAX_FRAME_NUMBER = 12;
 
     @Autowired
     private PlayerService playerService;
@@ -34,7 +34,7 @@ public class DefaultFrameService implements FrameService {
     @Override
     public void handleFrame(final String playerName, final int pinfalls) {
         final Player player = playerService.findByName(playerName);
-        final List<Frame> playerFrames = frameRepository.findByPlayer(player);
+        final List<Frame> playerFrames = findByPlayer(player);
         final Frame lastFrame = CollectionUtils.isEmpty(playerFrames) ? saveFrame(player, FIRST_FRAME_NUMBER) : getLastFrame(playerFrames);
         final Frame currentFrame = getCurrentFrame(lastFrame);
         pinfallService.saveNewPinfall(currentFrame, pinfalls);
@@ -78,5 +78,12 @@ public class DefaultFrameService implements FrameService {
         }
 
         return pinfalls.size() == 2;
+    }
+
+    @Override
+    public List<Frame> findByPlayer(Player player) {
+        final List<Frame> frames = frameRepository.findByPlayer(player);
+        frames.sort(Comparator.comparing(f -> f.getFrameNumber()));
+        return frames;
     }
 }

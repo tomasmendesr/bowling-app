@@ -2,8 +2,10 @@ package jobcity.core.utils.inputreadervalidator.impl;
 
 import jobcity.core.exceptions.LineValidationException;
 import jobcity.core.utils.inputreadervalidator.FrameLineValidator;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+@Service
 public class DefaultFrameLineValidator implements FrameLineValidator {
 
     @Override
@@ -22,11 +24,11 @@ public class DefaultFrameLineValidator implements FrameLineValidator {
         if (!"F".equals(pinfallsString)) {
             try {
                 final Integer pinfalls = Integer.parseInt(pinfallsString);
-                if (pinfalls > 10 || pinfalls < 1) {
+                if (pinfalls > 10 || pinfalls < 0) {
                     throw new NumberFormatException("Range exception");
                 }
             } catch (NumberFormatException numberFormatException) {
-                throw new LineValidationException("The only valid values for pinfalls quantity are 1 to 10 or F in case of being 0.");
+                throw new LineValidationException("The only valid values for pinfalls quantity are 0 to 10 or F in case of being 0.");
             }
         }
     }

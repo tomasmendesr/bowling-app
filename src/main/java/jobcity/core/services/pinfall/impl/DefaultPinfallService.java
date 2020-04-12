@@ -5,10 +5,11 @@ import jobcity.core.entities.Pinfall;
 import jobcity.core.exceptions.BowlingApplicationException;
 import jobcity.core.repositories.PinfallRepository;
 import jobcity.core.services.pinfall.PinfallService;
-import jobcity.core.utils.inputreadervalidator.CollectionUtils;
+import jobcity.core.utils.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -19,7 +20,9 @@ public class DefaultPinfallService implements PinfallService {
 
     @Override
     public List<Pinfall> findByFrame(final Frame frame) {
-        return pinfallRepository.findByFrame(frame);
+        List<Pinfall> pinfalls = pinfallRepository.findByFrame(frame);
+        pinfalls.sort(Comparator.comparing(p -> p.getId()));
+        return pinfalls;
     }
 
     @Override

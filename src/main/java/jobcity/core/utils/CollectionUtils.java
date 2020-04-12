@@ -1,4 +1,4 @@
-package jobcity.core.utils.inputreadervalidator;
+package jobcity.core.utils;
 
 import java.util.List;
 import java.util.Objects;
