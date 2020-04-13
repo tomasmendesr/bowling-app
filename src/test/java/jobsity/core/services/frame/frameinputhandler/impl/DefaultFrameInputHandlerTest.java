@@ -14,13 +14,8 @@ import static org.mockito.Mockito.*;
 
 public class DefaultFrameInputHandlerTest {
 
-    @Mock
     FrameService frameService;
-
-    @Mock
     FrameLineValidator frameLineValidator;
-
-    @InjectMocks
     DefaultFrameInputHandler frameInputHandler;
 
     @Before

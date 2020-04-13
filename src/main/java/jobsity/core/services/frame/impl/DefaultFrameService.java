@@ -22,14 +22,16 @@ public class DefaultFrameService implements FrameService {
     private static final Integer FIRST_FRAME_NUMBER = 1;
     public static final Integer MAX_FRAME_NUMBER = 12;
 
-    @Autowired
     private PlayerService playerService;
-
-    @Autowired
     private PinfallService pinfallService;
+    private FrameRepository frameRepository;
 
     @Autowired
-    private FrameRepository frameRepository;
+    public DefaultFrameService(PlayerService playerService, PinfallService pinfallService, FrameRepository frameRepository) {
+        this.playerService = playerService;
+        this.pinfallService = pinfallService;
+        this.frameRepository = frameRepository;
+    }
 
     @Override
     public void handleFrame(final String playerName, final int pinfalls) {
