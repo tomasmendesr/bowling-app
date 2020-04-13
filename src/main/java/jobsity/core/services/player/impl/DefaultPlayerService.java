@@ -2,8 +2,8 @@ package jobsity.core.services.player.impl;
 
 import jobsity.core.entities.Frame;
 import jobsity.core.entities.Player;
+import jobsity.core.repositories.FrameRepository;
 import jobsity.core.repositories.PlayerRepository;
-import jobsity.core.services.frame.FrameService;
 import jobsity.core.services.player.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,12 +14,12 @@ import java.util.*;
 public class DefaultPlayerService implements PlayerService {
 
     private PlayerRepository playerRepository;
-    private FrameService frameService;
+    private FrameRepository frameRepository;
 
     @Autowired
-    public DefaultPlayerService(PlayerRepository playerRepository, FrameService frameService){
+    public DefaultPlayerService(PlayerRepository playerRepository, FrameRepository frameRepository){
         this.playerRepository = playerRepository;
-        this.frameService = frameService;
+        this.frameRepository = frameRepository;
     }
 
     @Override
@@ -42,7 +42,7 @@ public class DefaultPlayerService implements PlayerService {
     @Override
     public Map<Player, List<Frame>> getFramesByPlayer() {
         Map<Player, List<Frame>> result = new HashMap<>();
-        findAll().forEach(player -> result.put(player, frameService.findByPlayer(player)));
+        findAll().forEach(player -> result.put(player, frameRepository.findByPlayer(player)));
         return result;
     }
 }
