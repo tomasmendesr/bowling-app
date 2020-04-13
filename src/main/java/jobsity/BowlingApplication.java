@@ -51,7 +51,7 @@ public class BowlingApplication {
 
         try {
             if (args == null || args.length != 1) {
-                throw new WrongNumberArgsException("file.txt");
+                throw new WrongNumberArgsException("Args are required");
             }
             final File file = new File(args[0]);
             validateFile(file);
@@ -74,11 +74,11 @@ public class BowlingApplication {
         }
     }
 
-    private static void validateFile(final File file) throws IOException {
+    private static void validateFile(final File file) {
         int dotIndex = file.getName().lastIndexOf('.');
         String fileExtension = (dotIndex == -1) ? "" : file.getName().substring(dotIndex + 1);
         if (!"txt".equals(fileExtension)) {
-            throw new IOException("The file should have a .txt extension");
+            throw new BowlingApplicationException("The file should has a .txt extension.");
         }
     }
 

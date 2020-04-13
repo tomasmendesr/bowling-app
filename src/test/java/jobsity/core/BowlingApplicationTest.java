@@ -25,6 +25,13 @@ public class BowlingApplicationTest {
     }
 
     @Test
+    public void testMainWhenNoArgsAreReceived(){
+        String[] arguments = null;
+        BowlingApplication.main(arguments);
+        assertTrue(outContent.toString().contains("[ERROR] A .txt file is required as arg."));
+    }
+
+    @Test
     public void testMainWhenFileIsIncomplete(){
         ClassLoader classLoader = getClass().getClassLoader();
         String[] arguments = new String[1];
@@ -59,6 +66,15 @@ public class BowlingApplicationTest {
         arguments[0] = classLoader.getResource("examples/exampleWithWrongInput.txt").getPath();
         BowlingApplication.main(arguments);
         assertTrue(outContent.toString().contains("[ERROR] The only valid values for pinfalls quantity are 0 to 10 or F in case of being 0."));
+    }
+
+    @Test
+    public void testMainWhenFileIsNotTxt(){
+        ClassLoader classLoader = getClass().getClassLoader();
+        String[] arguments = new String[1];
+        arguments[0] = classLoader.getResource("examples/examplePdf.pdf").getPath();
+        BowlingApplication.main(arguments);
+        assertTrue(outContent.toString().contains("[ERROR] The file should has a .txt extension"));
     }
 
     @Test
