@@ -45,7 +45,8 @@ public class DefaultResultOutputHandler implements ResultOutputHandler {
         gameService.setFinalScores();
     }
 
-    private String getFramePinfallsOutput(final Frame frame) {
+    @Override
+    public String getFramePinfallsOutput(final Frame frame) {
         final List<Pinfall> pinfalls = pinfallService.findByFrame(frame);
         if (pinfalls.size() == 1) return "    X";
         final int firstShoot = pinfalls.get(0).getQuantity();
@@ -55,7 +56,8 @@ public class DefaultResultOutputHandler implements ResultOutputHandler {
         return " " + firstShoot + "  " + secondShoot;
     }
 
-    private String getLastFrameOutput(final List<Frame> frames) {
+    @Override
+    public String getLastFrameOutput(final List<Frame> frames) {
         Frame frame9 = frames.get(9);
         final List<Pinfall> pinfallsFromFrame9 = pinfallService.findByFrame(frame9);
         if (pinfallsFromFrame9.size() == 1) {

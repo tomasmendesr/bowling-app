@@ -60,6 +60,8 @@ public class BowlingApplication {
             while (Objects.nonNull(readLine = bufferedReader.readLine())) {
                 frameInputHandler.handle(readLine);
             }
+
+            resultOutputHandler.finishGame();
             resultOutputHandler.printGameResult();
         } catch (WrongNumberArgsException wrongArgsExceptions) {
             System.out.println("A .txt file is required as arg. \n");

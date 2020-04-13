@@ -47,6 +47,6 @@ public class DefaultGameService implements GameService {
 
     @Override
     public void setFinalScores() {
-        final List<Player> players = playerService.findAll();
+        // TODO
     }
 }
