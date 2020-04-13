@@ -9,11 +9,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class DefaultFrameInputHandler implements FrameInputHandler {
 
-    @Autowired
     private FrameLineValidator frameLineValidator;
+    private FrameService frameService;
 
     @Autowired
-    private FrameService frameService;
+    public DefaultFrameInputHandler(FrameLineValidator frameLineValidator, FrameService frameService) {
+        this.frameLineValidator = frameLineValidator;
+        this.frameService = frameService;
+    }
 
     @Override
     public void handle(final String frameInput) {
