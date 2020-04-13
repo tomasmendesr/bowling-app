@@ -67,6 +67,12 @@ public class BowlingApplicationTest {
         String[] arguments = new String[1];
         arguments[0] = classLoader.getResource("examples/example.txt").getPath();
         BowlingApplication.main(arguments);
-        assertTrue(outContent.toString().contains("[ERROR] The only valid values for pinfalls quantity are 0 to 10 or F in case of being 0."));
+        assertTrue(outContent.toString().contains("  FRAME          1          2          3          4          5          6          7          8          9         10\n" +
+                "      Jeff                                                                                                              \n" +
+                "  Pinfalls          X       7  /       9  0          X       0  8       8  /       0  6          X          X      X 8 1\n" +
+                "     Score                                                                                                              \n" +
+                "      John                                                                                                              \n" +
+                "  Pinfalls       3  /       6  3          X       8  1          X          X       9  0       7  /       4  4      X 9 0\n" +
+                "     Score"));
     }
 }
