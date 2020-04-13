@@ -8,13 +8,20 @@ import java.util.List;
 public interface GameService {
 
     /**
-     * Returns true if all the players has a score
+     * Returns true if all the players has finished
      * @return
      */
     Boolean gameHasFinished();
 
+    /**
+     * Sets the score for all players
+     */
     void setFinalScores();
 
-    List<List<Frame>> getFramesFromPlayers(final List<Player> players);
-    boolean didPlayerFinish(final List<Frame> playerFrames);
+    /**
+     * Returns true
+     * @param playerFrames
+     * @return
+     */
+    boolean areFramesComplete(final List<Frame> playerFrames);
 }

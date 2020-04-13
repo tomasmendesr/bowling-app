@@ -5,12 +5,12 @@ import jobsity.core.entities.Player;
 import jobsity.core.services.frame.FrameService;
 import jobsity.core.services.game.GameService;
 import jobsity.core.services.player.PlayerService;
-import jobsity.core.utils.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static jobsity.core.services.frame.impl.DefaultFrameService.MAX_FRAME_NUMBER;
 
@@ -25,23 +25,21 @@ public class DefaultGameService implements GameService {
 
     @Override
     public Boolean gameHasFinished() {
-        final List<Player> players = playerService.findAll();
-        if (CollectionUtils.isNotEmpty(players)) {
-            final List<List<Frame>> playersFrames = getFramesFromPlayers(players);
-            return playersFrames.stream().allMatch(this::didPlayerFinish);
+        Map<Player, List<Frame>> framesByPlayer = playerService.getFramesByPlayer();
+        AtomicBoolean gameHasFinished = new AtomicBoolean(true);
+        for (Map.Entry<Player, List<Frame>> entry : framesByPlayer.entrySet()) {
+            List<Frame> frames = entry.getValue();
+            final boolean areFramesComplete = areFramesComplete(frames);
+            if (!areFramesComplete) {
+                gameHasFinished.set(false);
+                break;
+            }
         }
-        return false;
+        return gameHasFinished.get();
     }
 
     @Override
-    public List<List<Frame>> getFramesFromPlayers(final List<Player> players) {
-        final List<List<Frame>> playersFrames = new ArrayList<>();
-        players.forEach(player -> playersFrames.add(frameService.findByPlayer(player)));
-        return playersFrames;
-    }
-
-    @Override
-    public boolean didPlayerFinish(final List<Frame> playerFrames) {
+    public boolean areFramesComplete(final List<Frame> playerFrames) {
         return playerFrames.size() >= 10 && playerFrames.size() <= MAX_FRAME_NUMBER;
     }
 
