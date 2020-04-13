@@ -17,11 +17,12 @@ import static jobsity.core.services.frame.impl.DefaultFrameService.MAX_FRAME_NUM
 @Service
 public class DefaultGameService implements GameService {
 
-    @Autowired
     private PlayerService playerService;
 
     @Autowired
-    private FrameService frameService;
+    public DefaultGameService (PlayerService playerService) {
+        this.playerService = playerService;
+    }
 
     @Override
     public Boolean gameHasFinished() {
