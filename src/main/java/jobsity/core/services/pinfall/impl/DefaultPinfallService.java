@@ -4,6 +4,7 @@ import jobsity.core.entities.Frame;
 import jobsity.core.entities.Pinfall;
 import jobsity.core.exceptions.BowlingApplicationException;
 import jobsity.core.repositories.PinfallRepository;
+import jobsity.core.services.game.impl.DefaultGameService;
 import jobsity.core.services.pinfall.PinfallService;
 import jobsity.core.utils.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,12 @@ import java.util.List;
 @Service
 public class DefaultPinfallService implements PinfallService {
 
-    @Autowired
     private PinfallRepository pinfallRepository;
+
+    @Autowired
+    public DefaultPinfallService(PinfallRepository pinfallRepository){
+        this.pinfallRepository = pinfallRepository;
+    }
 
     @Override
     public List<Pinfall> findByFrame(final Frame frame) {

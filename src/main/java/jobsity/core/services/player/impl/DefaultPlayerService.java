@@ -13,11 +13,14 @@ import java.util.*;
 @Service
 public class DefaultPlayerService implements PlayerService {
 
-    @Autowired
     private PlayerRepository playerRepository;
+    private FrameService frameService;
 
     @Autowired
-    private FrameService frameService;
+    public DefaultPlayerService(PlayerRepository playerRepository, FrameService frameService){
+        this.playerRepository = playerRepository;
+        this.frameService = frameService;
+    }
 
     @Override
     public Player findByName(final String name) {
