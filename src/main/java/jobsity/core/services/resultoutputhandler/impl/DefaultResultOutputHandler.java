@@ -33,7 +33,7 @@ public class DefaultResultOutputHandler implements ResultOutputHandler {
         framesByPlayer.forEach((player, frames) -> {
             System.out.printf("%10s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s\n", player.getName(), "", "", "", "", "", "", "", "", "", "");
             System.out.printf("%10s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s\n", "Pinfalls", getFramePinfallsOutput(frames.get(0)), getFramePinfallsOutput(frames.get(1)), getFramePinfallsOutput(frames.get(2)), getFramePinfallsOutput(frames.get(3)), getFramePinfallsOutput(frames.get(4)), getFramePinfallsOutput(frames.get(5)), getFramePinfallsOutput(frames.get(6)), getFramePinfallsOutput(frames.get(7)), getFramePinfallsOutput(frames.get(8)), getLastFrameOutput(frames));
-            System.out.printf("%10s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s\n", "Score", "", "", "", "", "", "", "", "", "", "", "", "");
+            System.out.printf("%10s %10s %10s %10s %10s %10s %10s %10s %10s %10s %10s\n", "Score", frames.get(0).getScore(), frames.get(1).getScore(), frames.get(2).getScore(), frames.get(3).getScore(), frames.get(4).getScore(), frames.get(5).getScore(), frames.get(6).getScore(), frames.get(7).getScore(), frames.get(8).getScore(), frames.get(9).getScore());
         });
     }
 

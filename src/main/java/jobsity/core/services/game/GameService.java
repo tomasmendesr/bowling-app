@@ -1,7 +1,6 @@
 package jobsity.core.services.game;
 
 import jobsity.core.entities.Frame;
-import jobsity.core.entities.Player;
 
 import java.util.List;
 

@@ -7,6 +7,9 @@ import javax.persistence.*;
 public class Frame {
 
     public Frame() {}
+    public Frame(int frameNumber) {
+        this.frameNumber = frameNumber;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

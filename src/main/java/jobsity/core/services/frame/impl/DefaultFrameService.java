@@ -65,7 +65,7 @@ public class DefaultFrameService implements FrameService {
         Frame frame = new Frame();
         frame.setPlayer(player);
         frame.setFrameNumber(frameNumber);
-        return frameRepository.save(frame);
+        return save(frame);
     }
 
     @Override
@@ -87,5 +87,15 @@ public class DefaultFrameService implements FrameService {
         final List<Frame> frames = frameRepository.findByPlayer(player);
         frames.sort(Comparator.comparing(f -> f.getFrameNumber()));
         return frames;
+    }
+
+    @Override
+    public Frame save(Frame frame) {
+       return frameRepository.save(frame);
+    }
+
+    @Override
+    public Frame findById(Long id) {
+        return frameRepository.findById(id).get();
     }
 }

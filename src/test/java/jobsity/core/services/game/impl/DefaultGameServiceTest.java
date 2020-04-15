@@ -2,6 +2,8 @@ package jobsity.core.services.game.impl;
 
 import jobsity.core.entities.Frame;
 import jobsity.core.entities.Player;
+import jobsity.core.services.frame.FrameService;
+import jobsity.core.services.pinfall.PinfallService;
 import jobsity.core.services.player.PlayerService;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,12 +21,16 @@ import static org.mockito.Mockito.when;
 public class DefaultGameServiceTest {
 
     PlayerService playerService;
+    PinfallService pinfallService;
+    FrameService frameService;
     DefaultGameService defaultGameService;
 
     @Before
     public void setUp() {
         this.playerService = mock(PlayerService.class);
-        this.defaultGameService = new DefaultGameService(playerService);
+        this.pinfallService = mock(PinfallService.class);
+        this.frameService = mock(FrameService.class);
+        this.defaultGameService = new DefaultGameService(playerService, pinfallService, frameService);
     }
 
     @Test

@@ -33,4 +33,20 @@ public interface PinfallService {
      * @param newPinfall
      */
     void validateNewPinfallInFrame(final Frame frame, final Pinfall newPinfall);
+
+    /**
+     * Returns the pinfall quantity of a frame
+     * @param frame
+     * @return
+     */
+    int calculateQuantityFromFrame(Frame frame);
+
+    /**
+     * Returns true if the player has made a stricke for the current frame
+     * @param frame
+     * @return
+     */
+    boolean isAStrike(Frame frame);
+
+    int getFirstPinfallQuantityFromFrame(Frame frame);
 }

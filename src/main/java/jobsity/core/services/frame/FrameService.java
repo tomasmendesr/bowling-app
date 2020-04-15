@@ -47,4 +47,8 @@ public interface FrameService {
      * @return
      */
     List<Frame> findByPlayer(Player player);
+
+    Frame save(Frame frame);
+
+    Frame findById(Long id);
 }

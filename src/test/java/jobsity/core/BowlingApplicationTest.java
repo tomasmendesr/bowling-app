@@ -78,17 +78,29 @@ public class BowlingApplicationTest {
     }
 
     @Test
+    public void testPerfectGame() {
+        ClassLoader classLoader = getClass().getClassLoader();
+        String[] arguments = new String[1];
+        arguments[0] = classLoader.getResource("examples/perfectGame.txt").getPath();
+        BowlingApplication.main(arguments);
+        assertTrue(outContent.toString().contains("FRAME          1          2          3          4          5          6          7          8          9         10\n" +
+                "      Jeff                                                                                                              \n" +
+                "  Pinfalls          X          X          X          X          X          X          X          X          X      X X X\n" +
+                "     Score         30         60         90        120        150        180        210        240        270        300"));
+    }
+
+    @Test
     public void testMainWhenFileIsOk(){
         ClassLoader classLoader = getClass().getClassLoader();
         String[] arguments = new String[1];
         arguments[0] = classLoader.getResource("examples/example.txt").getPath();
         BowlingApplication.main(arguments);
-        assertTrue(outContent.toString().contains("  FRAME          1          2          3          4          5          6          7          8          9         10\n" +
+        assertTrue(outContent.toString().contains("FRAME          1          2          3          4          5          6          7          8          9         10\n" +
                 "      Jeff                                                                                                              \n" +
                 "  Pinfalls          X       7  /       9  0          X       0  8       8  /       0  6          X          X      X 8 1\n" +
-                "     Score                                                                                                              \n" +
+                "     Score         20         39         48         68         88         98        104        124        144        154\n" +
                 "      John                                                                                                              \n" +
                 "  Pinfalls       3  /       6  3          X       8  1          X          X       9  0       7  /       4  4      X 9 0\n" +
-                "     Score"));
+                "     Score         19         39         49         58         87        107        116        134        154        164"));
     }
 }
