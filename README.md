@@ -11,9 +11,11 @@ The application is made with:
 - Maven
 
 ## Usage
-First you need to compile the project. To do so, go to the root folder and run the following maven commands:
+First you need to compile the project. To do so, go to the root folder and run the following maven command:
 
 `mvn clean install package`
+
+Then just run it using:
 
 `mvn exec:java -Dexec.args="fileDirectory"`
 
