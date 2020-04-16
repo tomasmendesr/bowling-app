@@ -97,10 +97,10 @@ public class BowlingApplicationTest {
         BowlingApplication.main(arguments);
         assertTrue(outContent.toString().contains("FRAME          1          2          3          4          5          6          7          8          9         10\n" +
                 "      Jeff                                                                                                              \n" +
-                "  Pinfalls          X       7  /       9  0          X       0  8       8  /       0  6          X          X      X 8 1\n" +
-                "     Score         20         39         48         68         88         98        104        124        144        154\n" +
+                "  Pinfalls          X       7  /       9  0          X       0  8       8  /       0  6          X          X    X  8  1\n" +
+                "     Score       20         39         48         66         74         84         90        120        148      167    \n" +
                 "      John                                                                                                              \n" +
-                "  Pinfalls       3  /       6  3          X       8  1          X          X       9  0       7  /       4  4      X 9 0\n" +
-                "     Score         19         39         49         58         87        107        116        134        154        164"));
+                "  Pinfalls       3  /       6  3          X       8  1          X          X       9  0       7  /       4  4    X  9  0\n" +
+                "     Score       16         25         44         53         82        101        110        124        132      151 "));
     }
 }

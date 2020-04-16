@@ -1,9 +1,7 @@
 package jobsity.core.services.game.impl;
 
 import jobsity.core.entities.Frame;
-import jobsity.core.entities.Pinfall;
 import jobsity.core.entities.Player;
-import jobsity.core.exceptions.BowlingApplicationException;
 import jobsity.core.services.frame.FrameService;
 import jobsity.core.services.game.GameService;
 import jobsity.core.services.pinfall.PinfallService;
@@ -20,6 +18,8 @@ import static jobsity.core.services.frame.impl.DefaultFrameService.MAX_FRAME_NUM
 
 @Service
 public class DefaultGameService implements GameService {
+
+    public static final int LAST_VALID_FRAME_NUMBER = 10;
 
     private PlayerService playerService;
     private PinfallService pinfallService;
@@ -57,100 +57,60 @@ public class DefaultGameService implements GameService {
         final Map<Player, List<Frame>> framesByPlayer = playerService.getFramesByPlayer();
         for (Map.Entry<Player, List<Frame>> entry : framesByPlayer.entrySet()) {
             List<Frame> frames = entry.getValue();
-            frames.sort(Comparator.comparing(f -> f.getFrameNumber()));
-            int i = 0;
-            while (i < 10) {
-                final Frame frame = frameService.findById(frames.get(i).getId());
-                if (frame.getFrameNumber() >= 10) {
-                    handleLastFrame(frames, 9);
-                    i = 100;
-                } else {
-                    int framePinfallQuantity = pinfallService.calculateQuantityFromFrame(frame);
-                    int previousFrameScore = i != 0 ? frameService.findById(frames.get(i - 1).getId()).getScore() : 0;
-                    if (framePinfallQuantity == 10) {
-                        boolean isAStrike = pinfallService.isAStrike(frame);
-                        final Frame nextFrame = frames.get(i+1);
-                        int nextFramePinfallQuantity = pinfallService.calculateQuantityFromFrame(nextFrame);
-                        if (nextFramePinfallQuantity == 10) {
-                            boolean nextFrameIsAStrike = pinfallService.isAStrike(nextFrame);
-                            Frame nextNextFrame = frames.get(i+2);
-                            int nextNextFramePinfallQuantity = pinfallService.calculateQuantityFromFrame(nextNextFrame);
+            frames.sort(Comparator.comparing(Frame::getFrameNumber));
+            calculateScoreForFrames(frames);
+        }
+    }
 
-                            if (nextNextFramePinfallQuantity == 10) {
-                                boolean nextNextFrameIsAStrike = pinfallService.isAStrike(nextNextFrame);
-                                int frameScore = isAStrike ? 30 : (10 + pinfallService.calculateQuantityFromFrame(nextFrame));
-                                frame.setScore(previousFrameScore + frameScore);
-                                if (nextNextFrameIsAStrike) {
-                                    nextFrame.setScore(frame.getScore() + 30);
-                                } else {
-                                    int nextFrameScore = nextFrameIsAStrike ? 30 : (10 + pinfallService.calculateQuantityFromFrame(nextNextFrame));
-                                    nextFrame.setScore(frame.getScore() + nextFrameScore);
+    private void calculateScoreForFrames(List<Frame> frames) {
+        int i = 0;
+        while (i < LAST_VALID_FRAME_NUMBER) {
+            final Frame frame = frameService.findById(frames.get(i).getId());
+            int previousFrameScore = i != 0 ? frameService.findById(frames.get(i - 1).getId()).getScore() : 0;
+            if (frame.getFrameNumber() == MAX_FRAME_NUMBER) {
+                frame.setScore(previousFrameScore + pinfallService.calculateQuantityFromFrame(frames.get(i)));
+                frameService.save(frame);
+                break;
+            }
+            int framePinfallQuantity = pinfallService.calculateQuantityFromFrame(frame);
+            if (pinfallService.isAStrikeOrSpear(framePinfallQuantity)) {
+                boolean isAStrike = pinfallService.isAStrike(frame);
+                final Frame nextFrame = frames.get(i+1);
+                if (isAStrike) {
+                    boolean nextFrameIsAStrike = pinfallService.isAStrike(nextFrame);
+                    if (nextFrameIsAStrike) {
+                            final Frame nextNextFrame = frames.get(i+2);
+                            boolean nextNextFrameIsAStrike = pinfallService.isAStrike(nextNextFrame);
+                            if (nextNextFrameIsAStrike) {
+                                saveScoreForFrame(frame, previousFrameScore + 30);
+                                if (frame.getFrameNumber() == MAX_FRAME_NUMBER - 2) {
+                                    saveScoreForFrame(nextFrame, frame.getScore() + 10 + pinfallService.calculateQuantityFromFrame(nextNextFrame));
+                                    saveScoreForFrame(nextNextFrame, nextFrame.getScore() + pinfallService.calculateQuantityFromFrame(nextNextFrame, false));
+                                    break;
                                 }
-                                int nextNextFrameScore = nextNextFrameIsAStrike ? 30 : 20;
-                                nextNextFrame.setScore(nextFrame.getScore() + nextNextFrameScore);
-                                frameService.save(frame);
-                                frameService.save(nextFrame);
-                                frameService.save(nextNextFrame);
-                                i = nextNextFrame.getFrameNumber();
+                                i++;
                             } else {
-                                if (nextFrameIsAStrike) {
-                                    frame.setScore(previousFrameScore + 10 + 10 + nextNextFramePinfallQuantity);
-                                    nextFrame.setScore(frame.getScore() + 10 + nextFramePinfallQuantity);
-                                    nextNextFrame.setScore(nextFrame.getScore() + nextNextFramePinfallQuantity);
-                                } else {
-                                    int frameScore = isAStrike ? (10 + nextFramePinfallQuantity) : (10 + pinfallService.getFirstPinfallQuantityFromFrame(nextFrame));
-                                    frame.setScore(previousFrameScore + frameScore);
-                                    nextFrame.setScore(frame.getScore() + 10 + pinfallService.getFirstPinfallQuantityFromFrame(nextNextFrame));
-                                    nextNextFrame.setScore(nextFrame.getScore() + nextNextFramePinfallQuantity);
-                                }
-                                frameService.save(frame);
-                                frameService.save(nextFrame);
-                                frameService.save(nextNextFrame);
-                                i = nextNextFrame.getFrameNumber();
+                                saveScoreForFrame(frame, previousFrameScore + 20 + pinfallService.getFirstPinfallQuantityFromFrame(nextNextFrame));
+                                saveScoreForFrame(nextFrame, frame.getScore() + 10 + pinfallService.calculateQuantityFromFrame(nextNextFrame));
+                                i = nextFrame.getFrameNumber();
                             }
-                        } else {
-                            // hizo strike y en el proximo no tiró 10
-                            if (isAStrike) {
-                                frame.setScore(previousFrameScore + 10 + nextFramePinfallQuantity);
-                            } else {
-                                frame.setScore(previousFrameScore + 10 + pinfallService.getFirstPinfallQuantityFromFrame(nextFrame));
-                            }
-                            nextFrame.setScore(frame.getScore() + nextFramePinfallQuantity);
-                            frameService.save(frame);
-                            frameService.save(nextFrame);
-                            i = nextFrame.getFrameNumber();
-                        }
                     } else {
-                        frame.setScore(previousFrameScore + framePinfallQuantity);
-                        frameService.save(frame);
+                        saveScoreForFrame(frame, previousFrameScore + 10 + pinfallService.calculateQuantityFromFrame(nextFrame));
                         i++;
                     }
-                }
-            }
-        }
-    }
-
-    private void handleLastFrame(List<Frame> frames, int i) {
-        try {
-            Frame frame = frames.get(i);
-            Frame previousFrame = frameService.findById(frames.get(i - 1).getId());
-            int quantity = pinfallService.calculateQuantityFromFrame(frame);
-            if (quantity == 10) {
-                Frame nextFrame = frames.get(i + 1);
-                int quantityNext = pinfallService.calculateQuantityFromFrame(nextFrame);
-                if (quantityNext == 10) {
-                    Frame nextNextFrame = frames.get(i + 2);
-                    frame.setScore(previousFrame.getScore() + 20 + pinfallService.calculateQuantityFromFrame(nextNextFrame));
                 } else {
-                    frame.setScore(previousFrame.getScore() + 10 + quantityNext);
+                    saveScoreForFrame(frame, previousFrameScore + 10 + pinfallService.getFirstPinfallQuantityFromFrame(nextFrame));
+                    i++;
                 }
             } else {
-                frame.setScore(previousFrame.getScore() + quantity);
+                saveScoreForFrame(frame, previousFrameScore + framePinfallQuantity);
+                i++;
             }
-            frameService.save(frame);
-        } catch (Exception e) {
-            throw new BowlingApplicationException("The file is incomplete.");
         }
     }
 
+    private void saveScoreForFrame(Frame frame, int score) {
+        frame.setScore(score);
+        frameService.save(frame);
+    }
 }

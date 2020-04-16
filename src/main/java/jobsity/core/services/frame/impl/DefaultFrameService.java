@@ -20,7 +20,7 @@ import java.util.List;
 public class DefaultFrameService implements FrameService {
 
     private static final Integer FIRST_FRAME_NUMBER = 1;
-    public static final Integer MAX_FRAME_NUMBER = 12;
+    public static final Integer MAX_FRAME_NUMBER = 10;
 
     private PlayerService playerService;
     private PinfallService pinfallService;
@@ -47,7 +47,7 @@ public class DefaultFrameService implements FrameService {
         if (isFrameComplete(lastFrame)) {
             final int currentFrameNumber = lastFrame.getFrameNumber() + 1;
             if (currentFrameNumber > MAX_FRAME_NUMBER) {
-                throw new BowlingApplicationException("The player '" + lastFrame.getPlayer() + "' has more than 12 frames");
+                throw new BowlingApplicationException("The player '" + lastFrame.getPlayer().getName() + "' has more than " + MAX_FRAME_NUMBER + " frames");
             }
             return saveFrame(lastFrame.getPlayer(), currentFrameNumber);
         }
@@ -75,11 +75,20 @@ public class DefaultFrameService implements FrameService {
             return false;
         }
 
+        if (isTheLastFrame(frame)) {
+            if (pinfalls.size() == 3) throw new BowlingApplicationException("The input data is invalid.");
+            return pinfallService.calculateQuantityFromFrame(frame) < 10;
+        }
+
         if (pinfalls.get(0).getQuantity() == 10) {
             return true;
         }
 
         return pinfalls.size() == 2;
+    }
+
+    public boolean isTheLastFrame(final Frame frame) {
+        return frame.getFrameNumber() == MAX_FRAME_NUMBER;
     }
 
     @Override

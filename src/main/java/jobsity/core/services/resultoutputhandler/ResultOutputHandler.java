@@ -25,8 +25,8 @@ public interface ResultOutputHandler {
 
     /**
      * Gets the output result of the last frame
-     * @param frames
+     * @param frame
      * @return
      */
-    String getLastFrameOutput(final List<Frame> frames);
+    String getLastFrameOutput(final Frame frames);
 }
