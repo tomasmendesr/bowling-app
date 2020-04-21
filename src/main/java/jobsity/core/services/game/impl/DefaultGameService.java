@@ -19,8 +19,6 @@ import static jobsity.core.services.frame.impl.DefaultFrameService.MAX_FRAME_NUM
 @Service
 public class DefaultGameService implements GameService {
 
-    public static final int LAST_VALID_FRAME_NUMBER = 10;
-
     private PlayerService playerService;
     private PinfallService pinfallService;
     private FrameService frameService;
@@ -65,7 +63,7 @@ public class DefaultGameService implements GameService {
     @Override
     public void calculateScoreForFrames(List<Frame> frames) {
         int i = 0;
-        while (i < LAST_VALID_FRAME_NUMBER) {
+        while (i < MAX_FRAME_NUMBER) {
             final Frame frame = frameService.findById(frames.get(i).getId());
             int previousFrameScore = i != 0 ? frameService.findById(frames.get(i - 1).getId()).getScore() : 0;
             if (frame.getFrameNumber() == MAX_FRAME_NUMBER) {

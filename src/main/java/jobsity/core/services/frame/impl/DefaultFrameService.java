@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DefaultFrameService implements FrameService {
@@ -96,7 +97,7 @@ public class DefaultFrameService implements FrameService {
     @Override
     public List<Frame> findByPlayer(Player player) {
         final List<Frame> frames = frameRepository.findByPlayer(player);
-        frames.sort(Comparator.comparing(f -> f.getFrameNumber()));
+        frames.sort(Comparator.comparing(Frame::getFrameNumber));
         return frames;
     }
 
@@ -107,6 +108,7 @@ public class DefaultFrameService implements FrameService {
 
     @Override
     public Frame findById(Long id) {
-        return frameRepository.findById(id).get();
+        final Optional<Frame> frame = frameRepository.findById(id);
+        return frame.isPresent() ? frame.get() : null;
     }
 }

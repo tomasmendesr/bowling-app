@@ -17,8 +17,8 @@ import static org.mockito.Mockito.when;
 
 public class DefaultPinfallServiceTest {
 
-    PinfallRepository pinfallRepository;
-    DefaultPinfallService defaultPinfallService;
+    private PinfallRepository pinfallRepository;
+    private DefaultPinfallService defaultPinfallService;
 
     @Before
     public void setUp() {

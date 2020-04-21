@@ -18,9 +18,9 @@ import static org.mockito.Mockito.when;
 
 public class DefaultPlayerServiceTest {
 
-    PlayerRepository playerRepository;
-    FrameRepository frameRepository;
-    DefaultPlayerService playerService;
+    private PlayerRepository playerRepository;
+    private FrameRepository frameRepository;
+    private DefaultPlayerService playerService;
 
     @Before
     public void setUp() {

@@ -19,10 +19,10 @@ import static org.mockito.Mockito.when;
 
 public class DefaultFrameServiceTest {
 
-    PinfallService pinfallService;
-    PlayerService playerService;
-    FrameRepository frameRepository;
-    DefaultFrameService frameService;
+    private PinfallService pinfallService;
+    private PlayerService playerService;
+    private FrameRepository frameRepository;
+    private DefaultFrameService frameService;
 
     @Before
     public void setUp() {

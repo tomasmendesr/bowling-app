@@ -35,8 +35,7 @@ public class DefaultPlayerService implements PlayerService {
 
     @Override
     public List<Player> findAll() {
-        final List players = playerRepository.findAll();
-        return Objects.isNull(players) ? new ArrayList<>() : players;
+        return playerRepository.findAll();
     }
 
     @Override

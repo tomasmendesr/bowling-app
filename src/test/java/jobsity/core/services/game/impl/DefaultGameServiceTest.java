@@ -20,10 +20,10 @@ import static org.mockito.Mockito.when;
 
 public class DefaultGameServiceTest {
 
-    PlayerService playerService;
-    PinfallService pinfallService;
-    FrameService frameService;
-    DefaultGameService defaultGameService;
+    private PlayerService playerService;
+    private PinfallService pinfallService;
+    private FrameService frameService;
+    private DefaultGameService defaultGameService;
 
     @Before
     public void setUp() {

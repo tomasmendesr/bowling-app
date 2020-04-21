@@ -12,9 +12,9 @@ import static org.mockito.Mockito.*;
 
 public class DefaultFrameInputHandlerTest {
 
-    FrameService frameService;
-    FrameLineValidator frameLineValidator;
-    DefaultFrameInputHandler frameInputHandler;
+    private FrameService frameService;
+    private FrameLineValidator frameLineValidator;
+    private DefaultFrameInputHandler frameInputHandler;
 
     @Before
     public void setUp() {

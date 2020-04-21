@@ -17,14 +17,16 @@ import java.util.Map;
 @Service
 public class DefaultResultOutputHandler implements ResultOutputHandler {
 
-    @Autowired
     private GameService gameService;
-
-    @Autowired
     private PlayerService playerService;
+    private PinfallService pinfallService;
 
     @Autowired
-    private PinfallService pinfallService;
+    public DefaultResultOutputHandler(GameService gameService, PlayerService playerService, PinfallService pinfallService) {
+        this.gameService = gameService;
+        this.playerService = playerService;
+        this.pinfallService = pinfallService;
+    }
 
     @Override
     public void printGameResult() {

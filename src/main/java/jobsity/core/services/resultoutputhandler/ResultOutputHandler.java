@@ -23,7 +23,7 @@ public interface ResultOutputHandler {
 
     /**
      * Gets the output result of the last frame
-     * @param frame
+     * @param frames
      * @return
      */
     String getLastFrameOutput(final Frame frames);

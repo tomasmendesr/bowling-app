@@ -20,6 +20,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 @SpringBootApplication
@@ -34,6 +36,8 @@ import java.util.Objects;
                 )}
 )
 public class BowlingApplication {
+
+    private static final List<String> VALID_FILE_EXTENSIONS = Arrays.asList("txt");
 
     @Autowired
     private FrameInputHandler frameInputHandler;
@@ -61,6 +65,7 @@ public class BowlingApplication {
                 frameInputHandler.handle(readLine);
             }
 
+            bufferedReader.close();
             resultOutputHandler.finishGame();
             resultOutputHandler.printGameResult();
         } catch (WrongNumberArgsException wrongArgsExceptions) {
@@ -79,8 +84,8 @@ public class BowlingApplication {
 
     private static void validateFile(final File file) {
         int dotIndex = file.getName().lastIndexOf('.');
-        String fileExtension = (dotIndex == -1) ? "" : file.getName().substring(dotIndex + 1);
-        if (!"txt".equals(fileExtension)) {
+        final String fileExtension = (dotIndex == -1) ? "" : file.getName().substring(dotIndex + 1);
+        if (!VALID_FILE_EXTENSIONS.contains(fileExtension)) {
             throw new BowlingApplicationException("The file should has a .txt extension.");
         }
     }
