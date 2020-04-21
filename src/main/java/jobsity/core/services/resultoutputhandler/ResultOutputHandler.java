@@ -2,8 +2,6 @@ package jobsity.core.services.resultoutputhandler;
 
 import jobsity.core.entities.Frame;
 
-import java.util.List;
-
 public interface ResultOutputHandler {
 
     /**

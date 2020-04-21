@@ -5,13 +5,11 @@ import jobsity.core.entities.Pinfall;
 import jobsity.core.entities.Player;
 import jobsity.core.exceptions.BowlingApplicationException;
 import jobsity.core.repositories.PinfallRepository;
-import jobsity.core.services.frame.FrameService;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Arrays;
 
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

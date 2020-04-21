@@ -5,12 +5,11 @@ import jobsity.core.services.frame.FrameService;
 import jobsity.core.utils.inputreadervalidator.FrameLineValidator;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
 
 public class DefaultFrameInputHandlerTest {
 

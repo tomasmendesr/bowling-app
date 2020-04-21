@@ -4,7 +4,6 @@ import jobsity.core.entities.Frame;
 import jobsity.core.entities.Pinfall;
 import jobsity.core.exceptions.BowlingApplicationException;
 import jobsity.core.repositories.PinfallRepository;
-import jobsity.core.services.frame.FrameService;
 import jobsity.core.services.pinfall.PinfallService;
 import jobsity.core.utils.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
