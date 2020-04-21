@@ -48,7 +48,7 @@ public class DefaultResultOutputHandler implements ResultOutputHandler {
     @Override
     public void finishGame() {
         if (!gameService.gameHasFinished()) {
-            throw new BowlingApplicationException("There isn't enought data to finish the game. Please check the the file.");
+            throw new BowlingApplicationException("There isn't enough data to finish the game. Please check the the file.");
         }
         gameService.setFinalScores();
     }

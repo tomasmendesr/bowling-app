@@ -23,4 +23,10 @@ public interface GameService {
      * @return
      */
     boolean areFramesComplete(final List<Frame> playerFrames);
+
+    /**
+     * Calculates the score for a complete list of frames and persist it in the db.
+     * @param frames
+     */
+    void calculateScoreForFrames(List<Frame> frames);
 }

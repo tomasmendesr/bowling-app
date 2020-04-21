@@ -38,7 +38,7 @@ public class BowlingApplicationTest {
         String[] arguments = new String[1];
         arguments[0] = classLoader.getResource("examples/exampleIncomplete.txt").getPath();
         BowlingApplication.main(arguments);
-        assertTrue(outContent.toString().contains("[ERROR] There isn't enought data to finish the game. Please check the the file."));
+        assertTrue(outContent.toString().contains("[ERROR] There isn't enough data to finish the game. Please check the the file."));
     }
 
     @Test

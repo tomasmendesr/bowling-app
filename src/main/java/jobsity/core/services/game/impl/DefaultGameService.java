@@ -62,7 +62,8 @@ public class DefaultGameService implements GameService {
         }
     }
 
-    private void calculateScoreForFrames(List<Frame> frames) {
+    @Override
+    public void calculateScoreForFrames(List<Frame> frames) {
         int i = 0;
         while (i < LAST_VALID_FRAME_NUMBER) {
             final Frame frame = frameService.findById(frames.get(i).getId());

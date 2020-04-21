@@ -46,7 +46,7 @@ public class DefaultFrameServiceTest {
     }
 
     @Test
-    public void testGetCurrentFrame_whenFrameReceivedIsntComplete() {
+    public void testGetCurrentFrame_whenFrameReceivedIsNotComplete() {
         Frame frame = new Frame();
         frame.setId(2l);
         frame.setFrameNumber(2);

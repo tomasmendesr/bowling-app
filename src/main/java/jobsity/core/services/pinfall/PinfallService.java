@@ -29,7 +29,7 @@ public interface PinfallService {
     Pinfall saveNewPinfall(final Frame frame, final int pinfalls);
 
     /**
-     * Valiates if the new pinfall number is ok for a frame
+     * Validates if the new pinfall number is ok for a frame
      * @param frame
      * @param newPinfall
      */
@@ -51,7 +51,7 @@ public interface PinfallService {
     int calculateQuantityFromFrame(final Frame frame, boolean calculateOnlyFirstAndSecondShoot);
 
     /**
-     * Returns true if the player has made a stricke for the current frame
+     * Returns true if the player has made a strike for the current frame
      * @param frame
      * @return
      */
@@ -65,7 +65,7 @@ public interface PinfallService {
     boolean isAStrikeOrSpear(int quantity);
 
     /**
-     * Returns the quanity of pinfalls for the first shoot
+     * Returns the quantity of pinfalls for the first shoot
      * @param frame
      * @return
      */
