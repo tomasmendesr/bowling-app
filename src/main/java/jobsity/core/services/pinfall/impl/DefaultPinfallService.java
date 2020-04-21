@@ -38,13 +38,13 @@ public class DefaultPinfallService implements PinfallService {
     }
 
     @Override
-    public void saveNewPinfall(final Frame frame, final int pinfalls) {
+    public Pinfall saveNewPinfall(final Frame frame, final int pinfallsQuantity) {
         final Pinfall pinfall = new Pinfall();
-        pinfall.setQuantity(pinfalls);
+        pinfall.setQuantity(pinfallsQuantity);
         pinfall.setFrame(frame);
 
         validateNewPinfallInFrame(frame, pinfall);
-        save(pinfall);
+        return save(pinfall);
     }
 
     @Override
@@ -85,8 +85,8 @@ public class DefaultPinfallService implements PinfallService {
     }
 
     @Override
-    public void save(final Pinfall pinfall) {
-        pinfallRepository.save(pinfall);
+    public Pinfall save(final Pinfall pinfall) {
+        return pinfallRepository.save(pinfall);
     }
 
     @Override

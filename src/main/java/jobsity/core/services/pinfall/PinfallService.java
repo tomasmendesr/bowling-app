@@ -16,16 +16,17 @@ public interface PinfallService {
     /**
      * Saves a pinfall in the db
      * @param pinfall
+     * @return pinfall
      */
-    void save(final Pinfall pinfall);
+    Pinfall save(final Pinfall pinfall);
 
     /**
      * Saves a new pinfall related with a frame.
      * @param frame
-     * @return
+     * @return pinfall
      * @throws jobsity.core.exceptions.BowlingApplicationException in case the sum of the pinfalls adds up to more than 10
      */
-    void saveNewPinfall(final Frame frame, final int pinfalls);
+    Pinfall saveNewPinfall(final Frame frame, final int pinfalls);
 
     /**
      * Valiates if the new pinfall number is ok for a frame
