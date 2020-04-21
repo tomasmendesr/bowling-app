@@ -65,7 +65,7 @@ public class Player {
             return false;
         }
         Player other = (Player) obj;
-        if (!id.equals(other.id)) {
+        if (id != other.id) {
             return false;
         }
         if (name == null) {
