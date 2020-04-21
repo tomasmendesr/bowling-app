@@ -64,12 +64,15 @@ public class BowlingApplication {
             resultOutputHandler.finishGame();
             resultOutputHandler.printGameResult();
         } catch (WrongNumberArgsException wrongArgsExceptions) {
+            wrongArgsExceptions.printStackTrace();
             System.out.println("[ERROR] A .txt file is required as arg. \n");
             printFileFormatInformation();
         } catch (IOException ioeException) {
+            ioeException.printStackTrace();
             System.out.println("[ERROR] There was an error reading the file. \n");
             printFileFormatInformation();
         } catch (BowlingApplicationException bowlingApplicationException) {
+            bowlingApplicationException.printStackTrace();
             System.out.println("[ERROR] " + bowlingApplicationException.getMessage());
         }
     }
