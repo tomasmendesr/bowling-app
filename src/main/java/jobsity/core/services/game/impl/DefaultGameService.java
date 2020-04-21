@@ -49,7 +49,7 @@ public class DefaultGameService implements GameService {
 
     @Override
     public boolean areFramesComplete(final List<Frame> playerFrames) {
-        return playerFrames.size() >= 10 && playerFrames.size() <= MAX_FRAME_NUMBER;
+        return playerFrames.size() == 10;
     }
 
     @Override

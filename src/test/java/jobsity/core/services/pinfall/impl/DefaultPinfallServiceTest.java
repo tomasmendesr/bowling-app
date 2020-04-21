@@ -30,6 +30,7 @@ public class DefaultPinfallServiceTest {
         player.setName("TestName");
 
         Frame frame = new Frame();
+        frame.setId(2l);
         frame.setFrameNumber(5);
         frame.setPlayer(player);
 

@@ -54,12 +54,6 @@ public class DefaultFrameServiceTest {
         assertEquals(new Long(2), frameService.getCurrentFrame(frame).getId());
     }
 
-    @Test(expected = BowlingApplicationException.class)
-    public void testGetCurrentFrame_whenFrameReceivedIsNumber12() {
-        Frame frame = new Frame();
-        frame.setFrameNumber(12);
-    }
-
     @Test
     public void testGetLastFrame() {
         Frame frame = new Frame();

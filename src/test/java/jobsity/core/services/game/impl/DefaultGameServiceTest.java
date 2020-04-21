@@ -47,7 +47,7 @@ public class DefaultGameServiceTest {
     public void testAreFramesComplete_whenTheyAre10() {
         List<Frame> frames = new ArrayList<>();
         int i;
-        for (i = 0; i<11;i++) {
+        for (i = 0; i < 10; i++) {
             frames.add(mock(Frame.class));
         }
         assertTrue(defaultGameService.areFramesComplete(frames));
@@ -60,7 +60,7 @@ public class DefaultGameServiceTest {
         Player player2 = new Player();
         int i;
         List<Frame> frames = new ArrayList<>();
-        for (i = 0; i<11;i++) {
+        for (i = 0; i < 10; i++) {
             frames.add(mock(Frame.class));
         }
         map.put(player1, frames);
@@ -77,7 +77,7 @@ public class DefaultGameServiceTest {
         Player player2 = new Player();
         int i;
         List<Frame> frames = new ArrayList<>();
-        for (i = 0; i<11;i++) {
+        for (i = 0; i < 10; i++) {
             frames.add(mock(Frame.class));
         }
         map.put(player1, frames);

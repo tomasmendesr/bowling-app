@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static jobsity.core.services.frame.impl.DefaultFrameService.MAX_FRAME_NUMBER;
@@ -28,7 +29,7 @@ public class DefaultPinfallService implements PinfallService {
 
     @Override
     public List<Pinfall> findByFrame(final Frame frame) {
-        if (frame.getId() == null){
+        if (Objects.isNull(frame.getId())) {
             return new ArrayList<>();
         }
         final List<Pinfall> pinfalls = pinfallRepository.findByFrame(frame);

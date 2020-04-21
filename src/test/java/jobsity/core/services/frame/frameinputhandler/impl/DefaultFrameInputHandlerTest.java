@@ -8,8 +8,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 
 public class DefaultFrameInputHandlerTest {
 
@@ -37,6 +36,7 @@ public class DefaultFrameInputHandlerTest {
 
     @Test
     public void testGetPinfallsFromInput_whenIsAnF() {
+        when(frameLineValidator.isAFault("F")).thenReturn(true);
         assertEquals(0, frameInputHandler.getPinfallsFromInput("John F"));
     }
 

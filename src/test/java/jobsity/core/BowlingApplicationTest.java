@@ -86,8 +86,8 @@ public class BowlingApplicationTest {
         BowlingApplication.main(arguments);
         assertTrue(outContent.toString().contains("FRAME          1          2          3          4          5          6          7          8          9         10\n" +
                 "      Jeff                                                                                                              \n" +
-                "  Pinfalls          X          X          X          X          X          X          X          X          X      X X X\n" +
-                "     Score         30         60         90        120        150        180        210        240        270        300"));
+                "  Pinfalls          X          X          X          X          X          X          X          X          X    X  X  X\n" +
+                "     Score       30         60         90        120        150        180        210        240        270      300"));
     }
 
     @Test
