@@ -57,6 +57,7 @@ public class BowlingApplication {
             if (args == null || args.length != 1) {
                 throw new WrongNumberArgsException("Args are required");
             }
+
             final File file = new File(args[0]);
             validateFile(file);
             final BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
@@ -70,14 +71,17 @@ public class BowlingApplication {
             resultOutputHandler.printGameResult();
         } catch (WrongNumberArgsException wrongArgsExceptions) {
             wrongArgsExceptions.printStackTrace();
+            System.out.println("\n \n \n \n");
             System.out.println("[ERROR] A .txt file is required as arg. \n");
             printFileFormatInformation();
         } catch (IOException ioeException) {
             ioeException.printStackTrace();
+            System.out.println("\n \n \n \n");
             System.out.println("[ERROR] There was an error reading the file. \n");
             printFileFormatInformation();
         } catch (BowlingApplicationException bowlingApplicationException) {
             bowlingApplicationException.printStackTrace();
+            System.out.println("\n \n \n \n");
             System.out.println("[ERROR] " + bowlingApplicationException.getMessage());
         }
     }
