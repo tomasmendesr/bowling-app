@@ -8,6 +8,8 @@ import org.springframework.util.StringUtils;
 @Service
 public class DefaultFrameLineValidator implements FrameLineValidator {
 
+    public static final String FAULT = "F";
+
     @Override
     public void validateFrameLine(final String line) {
         if (StringUtils.isEmpty(line)) {
@@ -21,7 +23,7 @@ public class DefaultFrameLineValidator implements FrameLineValidator {
         }
 
         final String pinfallsString = splitedLine[1];
-        if (!"F".equals(pinfallsString)) {
+        if (!isAFault(pinfallsString)) {
             try {
                 final Integer pinfalls = Integer.parseInt(pinfallsString);
                 if (pinfalls > 10 || pinfalls < 0) {
@@ -31,5 +33,10 @@ public class DefaultFrameLineValidator implements FrameLineValidator {
                 throw new LineValidationException("The only valid values for pinfalls quantity are 0 to 10 or F in case of being 0.");
             }
         }
+    }
+
+    @Override
+    public boolean isAFault(final String pinfallsString) {
+        return FAULT.equals(pinfallsString);
     }
 }

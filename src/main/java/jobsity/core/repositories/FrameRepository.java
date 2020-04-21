@@ -18,11 +18,4 @@ public interface FrameRepository extends JpaRepository<Frame, Long> {
      * @return
      */
     List<Frame> findByPlayer(final Player player);
-
-    /**
-     * Returns a frame by a frameNumber
-     * @param frameNumber
-     * @return
-     */
-    Frame findByFrameNumber(final int frameNumber);
 }

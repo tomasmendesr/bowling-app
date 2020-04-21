@@ -38,7 +38,7 @@ public class DefaultFrameInputHandler implements FrameInputHandler {
     @Override
     public int getPinfallsFromInput(final String input) {
         final String[] splitedLine = splitInput(input);
-        if (!"F".equals(splitedLine[1])) {
+        if (!frameLineValidator.isAFault(splitedLine[1])) {
             return Integer.parseInt(splitedLine[1]);
         }
         return 0;

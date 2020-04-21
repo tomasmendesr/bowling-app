@@ -76,7 +76,9 @@ public class DefaultFrameService implements FrameService {
         }
 
         if (isTheLastFrame(frame)) {
-            if (pinfalls.size() == 3) throw new BowlingApplicationException("The input data is invalid.");
+            if (pinfalls.size() == 3) {
+                throw new BowlingApplicationException("The input data is invalid.");
+            }
             return pinfallService.calculateQuantityFromFrame(frame) < 10;
         }
 

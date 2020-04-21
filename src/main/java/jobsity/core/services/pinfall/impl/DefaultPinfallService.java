@@ -28,8 +28,10 @@ public class DefaultPinfallService implements PinfallService {
 
     @Override
     public List<Pinfall> findByFrame(final Frame frame) {
-        if (frame.getId() == null) return new ArrayList<>();
-        List<Pinfall> pinfalls = pinfallRepository.findByFrame(frame);
+        if (frame.getId() == null){
+            return new ArrayList<>();
+        }
+        final List<Pinfall> pinfalls = pinfallRepository.findByFrame(frame);
         pinfalls.sort(Comparator.comparing(p -> p.getId()));
         return pinfalls;
     }

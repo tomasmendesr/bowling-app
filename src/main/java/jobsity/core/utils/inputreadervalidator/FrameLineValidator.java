@@ -9,4 +9,12 @@ public interface FrameLineValidator {
      * @param frameLine
      */
     void validateFrameLine(final String frameLine);
+
+    /**
+     * Returns true if the string is an 'F'
+     * @param pinfallsString
+     * @return
+     */
+    boolean isAFault(final String pinfallsString);
+
 }

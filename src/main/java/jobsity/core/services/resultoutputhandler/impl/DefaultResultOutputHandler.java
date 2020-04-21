@@ -56,10 +56,14 @@ public class DefaultResultOutputHandler implements ResultOutputHandler {
     @Override
     public String getFramePinfallsOutput(final Frame frame) {
         final List<Pinfall> pinfalls = pinfallService.findByFrame(frame);
-        if (pinfalls.size() == 1) return "    X";
+        if (pinfalls.size() == 1) {
+            return "    X";
+        }
         final int firstShoot = pinfalls.get(0).getQuantity();
         final int secondShoot = pinfalls.get(1).getQuantity();
-        if (firstShoot + secondShoot == 10) return " " + firstShoot + "  /";
+        if (firstShoot + secondShoot == 10) {
+            return " " + firstShoot + "  /";
+        }
         return " " + getPinfallQuantityOutput(firstShoot) + "  " + getPinfallQuantityOutput(secondShoot);
     }
 
