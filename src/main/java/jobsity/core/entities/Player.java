@@ -16,7 +16,7 @@ public class Player {
     @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @Column(name = "score", nullable = true)
+    @Column(name = "score")
     private int score;
 
     public Long getId() {
@@ -65,14 +65,11 @@ public class Player {
             return false;
         }
         Player other = (Player) obj;
-        if (id != other.id) {
+        if (!id.equals(other.id)) {
             return false;
         }
         if (name == null) {
             return other.name == null;
-        } else if (!name.equals(other.name)) {
-            return false;
-        }
-        return true;
+        } else return name.equals(other.name);
     }
 }

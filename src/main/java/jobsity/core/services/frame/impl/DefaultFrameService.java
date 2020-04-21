@@ -58,7 +58,7 @@ public class DefaultFrameService implements FrameService {
 
     @Override
     public Frame getLastFrame(final List<Frame> frames) {
-        return Collections.max(frames, Comparator.comparing(f -> f.getFrameNumber()));
+        return Collections.max(frames, Comparator.comparing(Frame::getFrameNumber));
     }
 
     @Override
@@ -109,6 +109,6 @@ public class DefaultFrameService implements FrameService {
     @Override
     public Frame findById(Long id) {
         final Optional<Frame> frame = frameRepository.findById(id);
-        return frame.isPresent() ? frame.get() : null;
+        return frame.orElse(null);
     }
 }

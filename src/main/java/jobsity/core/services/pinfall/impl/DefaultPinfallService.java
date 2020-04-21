@@ -33,7 +33,7 @@ public class DefaultPinfallService implements PinfallService {
             return new ArrayList<>();
         }
         final List<Pinfall> pinfalls = pinfallRepository.findByFrame(frame);
-        pinfalls.sort(Comparator.comparing(p -> p.getId()));
+        pinfalls.sort(Comparator.comparing(Pinfall::getId));
         return pinfalls;
     }
 
@@ -68,8 +68,7 @@ public class DefaultPinfallService implements PinfallService {
         if (calculateOnlyFirstAndSecondShoot) {
             pinfalls = pinfalls.stream().limit(2).collect(Collectors.toList());
         }
-        int result = pinfalls.stream().mapToInt(Pinfall::getQuantity).sum();
-        return result;
+        return pinfalls.stream().mapToInt(Pinfall::getQuantity).sum();
     }
 
     @Override
